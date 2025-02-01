@@ -37,8 +37,12 @@ function ProductsPage() {
     }
   }, [selectedCategory.id]);
 
-  const handleAddToCart = (productId) => {
-    console.log("Add to cart", productId);
+  const handleAddToCart = async (productId) => {
+    await axios.post("http://localhost:4000/api/cart/add-item", {
+      user_id: localStorage.getItem("userId"),
+      product_id: productId,
+      quantity: 1,
+    });
   };
 
   const handleOnSelectedCategory = (category) => {

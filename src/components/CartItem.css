@@ -1,0 +1,29 @@
+.cart-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px;
+  margin-bottom: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.cart-item-details {
+  display: flex;
+  flex-direction: column;
+}
+
+.cart-item-name {
+  font-size: 1.25rem;
+  font-weight: bold;
+}
+
+.cart-item-quantity,
+.cart-item-price {
+  font-size: 1rem;
+}
+
+.cart-item-remove {
+  color: red;
+  cursor: pointer;
+}
