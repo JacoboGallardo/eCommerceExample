@@ -1,12 +1,16 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { AppBar, Toolbar, IconButton, Typography, Button } from "@mui/material";
+import { AppBar, Toolbar, IconButton, Typography, Button, Badge } from "@mui/material";
 import { Home, ShoppingCart, Store, Login, Logout } from "@mui/icons-material";
+import { useCartState } from "../context/cartContext";
 
 const Navbar = () => {
   const userToken = localStorage.getItem("userToken");
   const [isAuthenticated, setIsAuthenticated] = useState(!!userToken);
   const navigate = useNavigate();
+  const { cartQuantity } = useCartState()
+
+  console.log('Cart quantity', cartQuantity)
 
   useEffect(() => {
     setIsAuthenticated(!!userToken);
@@ -29,12 +33,17 @@ const Navbar = () => {
         <Typography variant="h6" sx={{ flexGrow: 1 }}>
           E-commerce App
         </Typography>
-        <Button color="inherit" component={Link} to="/products" startIcon={<Store />}>
-          Products
-        </Button>
-        <Button color="inherit" component={Link} to="/cart" startIcon={<ShoppingCart />}>
-          Cart
-        </Button>
+        <IconButton color="inherit" component={Link} to="/products" startIcon={<Store />}>
+          <Store />
+          <Typography>Products</Typography>
+        </IconButton>
+        <IconButton color="inherit" component={Link} to="/cart">
+          <Badge badgeContent={cartQuantity} color="secondary">
+            <ShoppingCart />
+          </Badge>
+          <Typography>Cart</Typography>
+        </IconButton>
+
         {isAuthenticated ? (
           <Button color="inherit" onClick={handleLogout} startIcon={<Logout />}>
             Logout
