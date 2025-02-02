@@ -26,7 +26,6 @@ function ProductsPage() {
     if (selectedCategory.id) {
       const fetchProducts = async () => {
         try {
-          console.log("selected category", selectedCategory.id)
           const response = await axios.get(`http://localhost:4000/api/products?category_id=${selectedCategory.id}`);
           setProducts(response.data);
         } catch (err) {
@@ -50,13 +49,19 @@ function ProductsPage() {
     setSelectedCategory({ id: category.id, name: category.name });
   };
 
+  const handleOnBackToCategories = () => {
+    setSelectedCategory({})
+    setProducts([])
+    console.log('Set products and category to intial state')
+  }
+
   return (
     <Box sx={{ padding: 3 }}>
       {!selectedCategory.id ? (
         <Categories categories={categories} onSelectCategory={handleOnSelectedCategory} />
       ) : (
         <Products
-          onBackToCategories={() => setSelectedCategory({})}
+          onBackToCategories={handleOnBackToCategories}
           selectedCategory={selectedCategory}
           products={products}
           handleAddToCart={handleAddToCart}
