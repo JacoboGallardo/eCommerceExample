@@ -1,14 +1,11 @@
 import React from "react";
-import axios from "axios";
 import { Button, Box, Typography, Grid } from "@mui/material";
-import { useNavigate } from "react-router-dom";
 import CartItem from "../components/CartItem";
 import { useCartState } from "../context/cartContext";
 import { useMessageQueue } from "../context/messageQueueContextProvider";
 
 function CartPage() {
-  const navigate = useNavigate();
-  const { cartState, removeItem } = useCartState()
+  const { cartState, removeItem, checkout } = useCartState()
   const userId = localStorage.getItem("userId");
   const { showMessage } = useMessageQueue();
 
@@ -20,10 +17,8 @@ function CartPage() {
   const handleCheckout = async () => {
     const userId = localStorage.getItem("userId");
     try {
-      await axios.post(`http://localhost:4000/api/cart/checkout`, {
-        user_id: userId,
-      });
-      navigate("/checkout-success");
+      await checkout(userId);
+      showMessage("Cart checkout done! Thanks for buying!")
     } catch (err) {
       console.error("Error during checkout", err);
     }

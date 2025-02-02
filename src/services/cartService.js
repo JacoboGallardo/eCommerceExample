@@ -36,3 +36,9 @@ export const addItemToCart = async ({ userId, productId }) => {
         quantity: 1,
     });
 }
+
+export const checkoutCart = async (userId) => {
+    await axios.post(`http://localhost:4000/api/cart/checkout`, {
+        user_id: userId,
+    });
+}

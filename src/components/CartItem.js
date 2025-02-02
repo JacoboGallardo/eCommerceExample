@@ -19,8 +19,8 @@ function CartItem({ id, name, quantity, price, image_url, cartId, handleRemoveIt
           </Typography>
         </CardContent>
         <CardActions>
-          <Button size="small" color="secondary" onClick={() => handleRemoveItem(id, cartId)} aria-label="remove">
-            Remove
+          <Button size="small" color="primary" onClick={() => handleRemoveItem(id, cartId)} aria-label="remove">
+            Remove from cart
           </Button>
         </CardActions>
       </Box>
