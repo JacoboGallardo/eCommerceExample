@@ -8,9 +8,9 @@ const Navbar = () => {
   const userToken = localStorage.getItem("userToken");
   const [isAuthenticated, setIsAuthenticated] = useState(!!userToken);
   const navigate = useNavigate();
-  const { cartQuantity } = useCartState()
+  const { cartState } = useCartState()
 
-  console.log('Cart quantity', cartQuantity)
+  console.log('Cart quantity', cartState?.cartQuantity);
 
   useEffect(() => {
     setIsAuthenticated(!!userToken);
@@ -38,7 +38,7 @@ const Navbar = () => {
           <Typography>Products</Typography>
         </IconButton>
         <IconButton color="inherit" component={Link} to="/cart">
-          <Badge badgeContent={cartQuantity} color="secondary">
+          <Badge badgeContent={cartState?.cartQuantity} color="secondary">
             <ShoppingCart />
           </Badge>
           <Typography>Cart</Typography>

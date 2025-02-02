@@ -8,8 +8,10 @@ import Navbar from "./components/Navbar";
 import { CartStatusProvider } from "./context/cartContext";
 
 function App() {
+  const userId = localStorage.getItem("userId");
+
   return (
-    <CartStatusProvider>
+    <CartStatusProvider userId={userId}>
       <Router>
         <Navbar />
         <Routes>

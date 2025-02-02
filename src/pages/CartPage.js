@@ -1,48 +1,18 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import axios from "axios";
 import { Button, Box, Typography, Grid } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import CartItem from "../components/CartItem";
+import { useCartState } from "../context/cartContext";
 
 function CartPage() {
-  const [cartState, setCartState] = useState({ cartItems: [], cartTotal: 0, cartId: undefined });
   const navigate = useNavigate();
+  const { cartState, removeItem } = useCartState()
+  const userId = localStorage.getItem("userId");
 
-  useEffect(() => {
-    const fetchCart = async () => {
-      const userId = localStorage.getItem("userId"); // Get user ID from storage
-      try {
-        const response = await axios.get(`http://localhost:4000/api/cart?user_id=${userId}`);
-        setCartState({
-          cartItems: response.data.productsInCart,
-          cartTotal: response.data.cartTotalPrice,
-          cartId: response.data.cartId,
-        });
-      } catch (err) {
-        console.error("Error fetching cart", err);
-      }
-    };
-
-    fetchCart();
-  }, []);
 
   const handleRemoveItem = async (productId, cartId) => {
-    const userId = localStorage.getItem("userId");
-    try {
-      await axios.post(`http://localhost:4000/api/cart/remove-item`, {
-        user_id: userId,
-        product_id: productId,
-        cart_id: cartId,
-      });
-      const response = await axios.get(`http://localhost:4000/api/cart?user_id=${userId}`);
-      setCartState({
-        cartItems: response.data.productsInCart,
-        cartTotal: response.data.cartTotalPrice,
-        cartId: response.data.cartId,
-      });
-    } catch (err) {
-      console.error("Error removing item from cart", err);
-    }
+    await removeItem({ userId, productId, cartId });
   };
 
   const handleCheckout = async () => {

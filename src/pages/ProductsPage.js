@@ -3,11 +3,13 @@ import axios from "axios";
 import { Box } from "@mui/material";
 import Categories from "../components/Categories";
 import Products from "../components/Products";
+import { useCartState } from "../context/cartContext";
 
 function ProductsPage() {
   const [categories, setCategories] = useState([]);
   const [products, setProducts] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState({});
+  const { addItem } = useCartState();
 
   useEffect(() => {
     const fetchCategories = async () => {
@@ -38,11 +40,8 @@ function ProductsPage() {
   }, [selectedCategory.id]);
 
   const handleAddToCart = async (productId) => {
-    await axios.post("http://localhost:4000/api/cart/add-item", {
-      user_id: localStorage.getItem("userId"),
-      product_id: productId,
-      quantity: 1,
-    });
+    const userId = localStorage.getItem("userId");
+    await addItem({ userId, productId })
   };
 
   const handleOnSelectedCategory = (category) => {
