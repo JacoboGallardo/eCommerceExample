@@ -4,15 +4,17 @@ import { Button, Box, Typography, Grid } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import CartItem from "../components/CartItem";
 import { useCartState } from "../context/cartContext";
+import { useMessageQueue } from "../context/messageQueueContextProvider";
 
 function CartPage() {
   const navigate = useNavigate();
   const { cartState, removeItem } = useCartState()
   const userId = localStorage.getItem("userId");
-
+  const { showMessage } = useMessageQueue();
 
   const handleRemoveItem = async (productId, cartId) => {
     await removeItem({ userId, productId, cartId });
+    showMessage("Item removed from cart")
   };
 
   const handleCheckout = async () => {

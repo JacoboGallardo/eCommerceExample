@@ -3,6 +3,7 @@ import axios from "axios";
 import { Box } from "@mui/material";
 import Categories from "../components/Categories";
 import Products from "../components/Products";
+import { useMessageQueue } from "../context/messageQueueContextProvider";
 import { useCartState } from "../context/cartContext";
 
 function ProductsPage() {
@@ -10,6 +11,7 @@ function ProductsPage() {
   const [products, setProducts] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState({});
   const { addItem } = useCartState();
+  const { showMessage } = useMessageQueue();
 
   useEffect(() => {
     const fetchCategories = async () => {
@@ -42,6 +44,7 @@ function ProductsPage() {
   const handleAddToCart = async (productId) => {
     const userId = localStorage.getItem("userId");
     await addItem({ userId, productId })
+    showMessage('Item added to cart')
   };
 
   const handleOnSelectedCategory = (category) => {
