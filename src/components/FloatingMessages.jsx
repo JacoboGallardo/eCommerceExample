@@ -22,9 +22,9 @@ function FloatingMessages({ messages, removeMessage }) {
                     message={msg.text}
                     autoHideDuration={8000}
                     TransitionComponent={Slide}
-                    anchorOrigin={{ vertical: "top", horizontal: "right" }}
+                    anchorOrigin={{ vertical: "down", horizontal: "right" }}
                     sx={{
-                        transform: `translateY(${index * 60}px)`, // Moves each message down
+                        transform: `translateY(-${index * 60}px)`, // Moves each message down
                         transition: "transform 0.3s ease-in-out",
                     }}
                     action={
