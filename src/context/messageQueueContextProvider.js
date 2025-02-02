@@ -3,17 +3,18 @@ import FloatingMessages from "../components/FloatingMessages";
 
 const MessageQueueContext = createContext();
 
+const FADE_OUT_TIME = 5000;
+
 export function MessageQueueProvider({ children }) {
     const [messages, setMessages] = useState([]);
 
     const showMessage = (text) => {
-        const id = Date.now(); // Unique ID
+        const id = Date.now();
         setMessages((prev) => [...prev, { id, text }]);
 
-        // Auto-remove message after 2 seconds
         setTimeout(() => {
             setMessages((prev) => prev.filter((msg) => msg.id !== id));
-        }, 2000);
+        }, FADE_OUT_TIME);
     };
 
     const removeMessage = (id) => {
