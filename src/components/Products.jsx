@@ -14,7 +14,7 @@ function Products({ onBackToCategories, selectedCategory, products, handleAddToC
         {products.map((product) => (
           <Grid2 item xs={12} sm={6} md={4} key={product.id}>
             <Card sx={{ height: "100%", display: "flex", flexDirection: "column", width: 300 }}>
-              <CardMedia sx={{ height: 200 }} image={product.image_url} title={product.name} />
+              <CardMedia component="img" sx={{ width: 200 }} image={product.image_url} title={product.name} />
               <CardHeader title={product.name} />
               <CardContent sx={{ flexGrow: 1, alignContent: "space-between" }}>
                 <Typography variant="body2" sx={{ color: "text.secondary" }}>
