@@ -20,8 +20,9 @@ const Navbar = () => {
     console.log("remove token");
     localStorage.removeItem("userToken");
     localStorage.removeItem("userId");
+    localStorage.removeItem("userName")
     setIsAuthenticated(false);
-    navigate("/");
+    navigate("/login");
   };
 
   return (
@@ -52,7 +53,7 @@ const Navbar = () => {
             Logout
           </Button>
         ) : (
-          <Button color="inherit" component={Link} to="/" startIcon={<Login />}>
+          <Button color="inherit" component={Link} to="/login" startIcon={<Login />}>
             Login
           </Button>
         )}

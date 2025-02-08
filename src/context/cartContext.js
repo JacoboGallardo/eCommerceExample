@@ -7,8 +7,6 @@ const INITIAL_EMPTY_CART_STATE = { cartQuantity: 0, cartItems: [], cartTotal: 0,
 export function CartStatusProvider({ userId, children }) {
     const [cartState, setCartState] = useState(INITIAL_EMPTY_CART_STATE);
 
-    console.log('Cart state is', cartState)
-
     useEffect(() => {
         const updateState = async () => {
             const newState = await fetchCartState(userId);
@@ -19,7 +17,9 @@ export function CartStatusProvider({ userId, children }) {
             setCartState(newState)
         }
 
-        updateState();
+        if (userId) {
+            updateState();
+        }
 
     }, [userId]);
 

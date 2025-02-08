@@ -4,12 +4,14 @@ export const fetchCartState = async (userId) => {
     try {
         if (userId) {
             const response = await axios.get(`http://localhost:4000/api/cart?user_id=${userId}`);
-            return {
-                cartItems: response.data.productsInCart,
-                cartTotal: response.data.cartTotalPrice,
-                cartId: response.data.cartId,
-                cartQuantity: response.data.totalQuantity
-            };
+            if (response.data.cartId) {
+                return {
+                    cartItems: response.data.productsInCart,
+                    cartTotal: response.data.cartTotalPrice,
+                    cartId: response.data.cartId,
+                    cartQuantity: response.data.totalQuantity
+                };
+            }
         }
 
     } catch (err) {

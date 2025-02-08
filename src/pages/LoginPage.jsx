@@ -10,6 +10,8 @@ function LoginPage() {
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
+  console.log('Rendering login page')
+
   const handleLogin = async () => {
     try {
       const response = await axios.post("http://localhost:4000/api/users/login", {
@@ -26,6 +28,7 @@ function LoginPage() {
   };
 
   useEffect(() => {
+    console.log('Checking user')
     const userToken = localStorage.getItem("userToken");
     const userName = localStorage.getItem("userName");
     setIsAuthenticated(!!userToken);
