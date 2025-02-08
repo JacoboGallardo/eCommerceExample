@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { AppBar, Toolbar, IconButton, Typography, Button, Badge } from "@mui/material";
-import { Home, ShoppingCart, Store, Login, Logout } from "@mui/icons-material";
+import { Home, ShoppingCart, Store, Login, Logout, TextSnippet } from "@mui/icons-material";
 import { useCartState } from "../context/cartContext";
 
 const Navbar = () => {
@@ -37,13 +37,16 @@ const Navbar = () => {
           <Store />
           <Typography>Products</Typography>
         </IconButton>
+        <IconButton color="inherit" component={Link} to="/orderHistory">
+          <TextSnippet />
+          <Typography>Order History</Typography>
+        </IconButton>
         <IconButton color="inherit" component={Link} to="/cart">
           <Badge badgeContent={cartState?.cartQuantity} color="secondary">
             <ShoppingCart />
           </Badge>
           <Typography>Cart</Typography>
         </IconButton>
-
         {isAuthenticated ? (
           <Button color="inherit" onClick={handleLogout} startIcon={<Logout />}>
             Logout
