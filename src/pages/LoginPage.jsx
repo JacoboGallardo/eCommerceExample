@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { TextField, Button, Box, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import { useCartState } from "../context/cartContext";
 
 function LoginPage() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -9,6 +10,7 @@ function LoginPage() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const navigate = useNavigate();
+  const { setUserId } = useCartState();
 
   console.log('Rendering login page')
 
@@ -21,6 +23,7 @@ function LoginPage() {
       localStorage.setItem("userToken", response.data.token);
       localStorage.setItem("userId", response.data.id);
       localStorage.setItem("userName", username);
+      setUserId(response.data.id)
       navigate("/products");
     } catch (err) {
       setError("Invalid credentials");

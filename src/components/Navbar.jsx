@@ -2,15 +2,13 @@ import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { AppBar, Toolbar, IconButton, Typography, Button, Badge } from "@mui/material";
 import { Home, ShoppingCart, Store, Login, Logout, TextSnippet } from "@mui/icons-material";
-import { useCartState } from "../context/cartContext";
+import { INITIAL_EMPTY_CART_STATE, useCartState } from "../context/cartContext";
 
 const Navbar = () => {
   const userToken = localStorage.getItem("userToken");
   const [isAuthenticated, setIsAuthenticated] = useState(!!userToken);
   const navigate = useNavigate();
-  const { cartState } = useCartState()
-
-  console.log('Cart quantity', cartState?.cartQuantity);
+  const { cartState, setCartState } = useCartState()
 
   useEffect(() => {
     setIsAuthenticated(!!userToken);
@@ -22,6 +20,7 @@ const Navbar = () => {
     localStorage.removeItem("userId");
     localStorage.removeItem("userName")
     setIsAuthenticated(false);
+    setCartState(INITIAL_EMPTY_CART_STATE)
     navigate("/login");
   };
 

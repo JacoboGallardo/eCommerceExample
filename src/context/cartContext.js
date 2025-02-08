@@ -2,10 +2,11 @@ import React, { createContext, useContext, useState, useEffect } from "react";
 import { addItemToCart, fetchCartState, removeItemFromCart, checkoutCart } from '../services/cartService'
 
 const CartContext = createContext();
-const INITIAL_EMPTY_CART_STATE = { cartQuantity: 0, cartItems: [], cartTotal: 0, cartId: undefined }
+export const INITIAL_EMPTY_CART_STATE = { cartQuantity: 0, cartItems: [], cartTotal: 0, cartId: undefined }
 
-export function CartStatusProvider({ userId, children }) {
+export function CartStatusProvider({ children }) {
     const [cartState, setCartState] = useState(INITIAL_EMPTY_CART_STATE);
+    const [userId, setUserId] = useState(localStorage.getItem("userId"))
 
     useEffect(() => {
         const updateState = async () => {
@@ -41,7 +42,7 @@ export function CartStatusProvider({ userId, children }) {
     }
 
     return (
-        <CartContext.Provider value={{ cartState, removeItem, addItem, checkout }}>
+        <CartContext.Provider value={{ cartState, removeItem, addItem, checkout, setUserId, setCartState }}>
             {children}
         </CartContext.Provider>
     );

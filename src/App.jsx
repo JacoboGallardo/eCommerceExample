@@ -11,11 +11,11 @@ import { CartStatusProvider } from "./context/cartContext";
 import { MessageQueueProvider } from "./context/messageQueueContextProvider";
 
 function App() {
-  const userId = localStorage.getItem("userId");
+
 
   return (
     <MessageQueueProvider>
-      <CartStatusProvider userId={userId}>
+      <CartStatusProvider >
         <Router>
           <Navbar />
           <Routes>
